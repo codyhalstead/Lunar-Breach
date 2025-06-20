@@ -4,60 +4,57 @@ using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
 {
+    // Keeps track of enemies hit (To prevent multi-triggers)
     private HashSet<GameObject> hitEnemies = new();
 
-    [Header("Damage Settings")]
     public int damage = 10;
-
-    [Header("Knockback Settings")]
     public float knockbackForce = 5f;
-
+    public float bulletLifetime = 7f;
     public bool destroyOnImpact = true;
     public bool noMultiHits = true;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Enemy1 enemy = collision.gameObject.GetComponent<Enemy1>();
-        if (enemy != null)
-        {
-            HandleHit(collision.gameObject, transform.position);
-        }
+   
 
-        Destroy(gameObject);
+    void Start()
+    {
+        // Destroy after lifetime
+        Destroy(gameObject, bulletLifetime);
     }
 
-    // If using triggers:
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Collision triggered
         if (noMultiHits && hitEnemies.Contains(other.gameObject))
         {
+            // Collision already triggered once on target
+            // and multi-hits disabled, ignore
             return;
         }
-
+        // Handle collision hit
         HandleHit(other.gameObject, transform.position);
 
     }
 
     protected void HandleHit(GameObject target, Vector2 hitPoint)
     {
-        Enemy1 enemy = target.GetComponent<Enemy1>();
+        BaseEnemy enemy = target.GetComponent<BaseEnemy>();
         if (enemy != null)
         {
+            // Collision was an enemy, do damage
             enemy.TakeDamage(damage);
-            //Debug.LogWarning("Enemy found!");
-            // Optional knockback
             Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
-       
             if (enemyRb != null)
             {
-                //Debug.LogWarning("Enemy RB found");
+                // Enemy has RB, apply knockback
                 Vector2 direction = (Vector2)enemy.transform.position - hitPoint;
                 direction.Normalize();
                 enemyRb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
             }
+            // Add enemy to collision HashSet
             hitEnemies.Add(target);
         }
         if (destroyOnImpact) {
+            // Bullet was set to be destroyed on impact
             Destroy(gameObject);
         }
     }

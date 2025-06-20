@@ -3,30 +3,34 @@ using UnityEngine.InputSystem;
 
 public class MouseReticle : MonoBehaviour
 {
-    private RectTransform _rectTransform;
-    private Canvas _canvas;
-    private Vector2 _currentPos;
+    private RectTransform rectTransform;
+    private Canvas canvas;
+    private Vector2 currentPos;
 
     private void Awake()
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _canvas = GetComponentInParent<Canvas>();
-        Cursor.visible = false; // Hides system cursor
+        // Custom cursor position manager
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
+        // Hide default cursor
+        Cursor.visible = false; 
     }
 
     private void LateUpdate()
     {
+        // Get current mouse position
         Vector2 mousePos = Mouse.current.position.ReadValue();
+        // Convert mouse position to local UI space
         Vector2 anchoredPos;
-
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvas.transform as RectTransform,
+            canvas.transform as RectTransform,
             mousePos,
-            _canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _canvas.worldCamera,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
             out anchoredPos
         );
-
-        _currentPos = Vector2.Lerp(_currentPos, anchoredPos, 0.15f); // Adjust smoothing factor
-        _rectTransform.anchoredPosition = _currentPos;
+        // Interpolate position (for smoothness)
+        currentPos = Vector2.Lerp(currentPos, anchoredPos, 0.15f);
+        // Put custom reticle at mouse position
+        rectTransform.anchoredPosition = currentPos;
     }
 }
