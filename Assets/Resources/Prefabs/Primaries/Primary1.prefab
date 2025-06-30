@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c014ef686005a204696d275460185242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6011412134837512077, guid: e13fcab6ca9ca204ab83ae03b8bb6919, type: 3}
   weaponName: Blaster
   currentAmmo: -1
   weaponCost: 0
-  bulletPrefab: {fileID: 6011412134837512077, guid: e13fcab6ca9ca204ab83ae03b8bb6919, type: 3}
   firePoint: {fileID: 0}
-  fireForce: 15
+  fireForce: 20
   bulletDamage: 25
   knockBackForce: 5
   fireRate: 0.3

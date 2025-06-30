@@ -26,7 +26,7 @@ public class WeaponPreviewUI : MonoBehaviour
         weaponPreviewWindow.SetActive(false);
     }
 
-    public void show(WeaponBase weapon, bool isOwned)
+    public void show(WeaponBase weapon, bool isOwned, bool isEquipped)
     {
         this.selectedWeapon = weapon;
         weaponPreviewWindow.SetActive(true);
@@ -36,7 +36,14 @@ public class WeaponPreviewUI : MonoBehaviour
         {
             purchaseUI.SetActive(false);
             costText.text = "0";
-            equipButton.gameObject.SetActive(true);
+            if (isEquipped)
+            {
+                equipButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                equipButton.gameObject.SetActive(true);
+            }
         }
         else
         {

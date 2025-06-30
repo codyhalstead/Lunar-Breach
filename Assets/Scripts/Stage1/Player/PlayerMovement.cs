@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerEnergy playerEnergy;
     [SerializeField] private Light2D playerGlow;
     private PlayerAnimation playerAnimation;
-
+    private GameDataManager gameDataManager;
 
     private Rigidbody2D rigidBody;
     private Vector2 movementInput;
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation = GetComponent<PlayerAnimation>();
         // Enable interpolation (smoother movement)
         rigidBody.interpolation = RigidbodyInterpolation2D.Interpolate;
+        gameDataManager = GameDataManager.GetInstance();
     }
 
     private void Update()
@@ -141,12 +144,30 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        if (isDead)
+        {
+            return;
+        }
         isDead = true;
         // Disable player input, stop all current movement, play death anim
         GetComponent<PlayerInput>().DeactivateInput();
         playerAnimation.Die();
         movementInput = Vector2.zero;
         rigidBody.linearVelocity = Vector2.zero;
+        StartCoroutine(RestartWithFade());
+    }
+
+    private IEnumerator RestartWithFade()
+    {
+        ScreenFader fader = FindFirstObjectByType<ScreenFader>();
+        if (fader != null)
+        {
+            fader.missionComplete = false;
+            yield return StartCoroutine(fader.FadeOut());
+        }
+        gameDataManager.SaveData();
+        // Reload scene after fade
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Destroy()

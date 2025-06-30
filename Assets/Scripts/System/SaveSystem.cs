@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -13,14 +14,20 @@ public static class SaveSystem
 
     public static GameData LoadGame()
     {
-        Debug.Log("GameDataManager: Attempting to load game data...");
         if (File.Exists(path))
         {
-            Debug.Log("GameDataManager: Data Found");
             string json = File.ReadAllText(path);
             return JsonUtility.FromJson<GameData>(json);
         }
-        Debug.Log("GameDataManager: Data Not Found, Make new");
-        return new GameData(); 
+        // Set defaults for new save
+        GameData gameData = new GameData();
+        gameData.unlockedPrimaries = new List<string> { "Primary1" };
+        gameData.unlockedSecondaries = new List<string> { "SecondaryWeapon1" };
+        gameData.unlockedMelee = new List<string> { "Melee1" };
+        gameData.equippedPrimary = "Primary1";
+        gameData.equippedSecondary = "SecondaryWeapon1";
+        gameData.equippedMelee = "Melee1";
+        SaveGame(gameData);
+        return gameData; 
     }
 }

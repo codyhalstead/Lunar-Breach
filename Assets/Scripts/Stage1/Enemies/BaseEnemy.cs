@@ -72,7 +72,7 @@ public abstract class BaseEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         // Subtract given damage amount from health, track that enemy was attacked 
         currentHealth -= amount;

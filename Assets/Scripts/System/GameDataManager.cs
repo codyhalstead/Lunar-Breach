@@ -10,7 +10,7 @@ public class GameDataManager : MonoBehaviour
 
     public GameData CurrentData { get; private set; }
 
-    public List<string> allPrimaries = new List<String> { "Primary1" };
+    public List<string> allPrimaries = new List<String> { "Primary1", "Primary2", "Primary3" };
     public List<string> allSecondaries = new List<String> { "SecondaryWeapon1" };
     public List<string> allMelee = new List<String> { "Melee1" };
 
@@ -30,30 +30,25 @@ public class GameDataManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("GameDataManager: AWAKE");
         if (LoadedInstance == null)
         {
-            Debug.Log("GameDataManager: Instance was null, make new");
             LoadedInstance = this;
             DontDestroyOnLoad(gameObject);
             LoadData(); 
         }
         else
         {
-            Debug.Log("GameDataManager: Instance was NOT null");
             Destroy(gameObject);
         }
     }
 
     public void LoadData()
     {
-        Debug.Log("GameDataManager: Trying To Load Data");
         CurrentData = SaveSystem.LoadGame();
     }
 
     public void SaveData()
     {
-        Debug.Log("GameDataManager: Trying To Save Data");
         SaveSystem.SaveGame(CurrentData);
     }
 

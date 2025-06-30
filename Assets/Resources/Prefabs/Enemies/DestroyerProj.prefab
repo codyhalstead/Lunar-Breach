@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9147898576679478693}
   - component: {fileID: 3700837662459890458}
   - component: {fileID: 7113021710049407857}
-  - component: {fileID: 4651216582727541766}
+  - component: {fileID: -6069507947084120807}
   m_Layer: 8
   m_Name: DestroyerProj
   m_TagString: Untagged
@@ -209,7 +209,7 @@ MonoBehaviour:
   - {x: 0.18125881, y: 0.22663115, z: 0}
   - {x: -0.11836952, y: 0.22488959, z: 0}
   - {x: -0.22971466, y: 0.024048718, z: 0}
---- !u!114 &4651216582727541766
+--- !u!114 &-6069507947084120807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a65590e190a41049beaf03b51d98305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  damage: 0
-  knockback: 0
-  lifetime: 1
+  speed: 15
+  damage: 5
+  knockback: 10
+  lifetime: 8

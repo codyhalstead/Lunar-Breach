@@ -1,71 +1,69 @@
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System;
 
 public class WeaponManager : MonoBehaviour
 {
     
     public Transform weaponHolder;
     private PlayerInput playerInput;
-    Transform playerAimer;
-    Transform player;
+    private Transform playerAimer;
+    private Transform player;
+    private GameDataManager gameDataManager;
 
     // Primary
-    public List<GameObject> unlockedPrimaryPrefabs = new List<GameObject>();
-    private int currentPrimaryIndex = 0;
     public GameObject defaultPrimaryPrefab;
     private GameObject currentPrimaryObject;
     private WeaponBase currentPrimaryScript;
 
     // Secondary
-    public List<GameObject> unlockedSecondaryPrefabs = new List<GameObject>();
-    private int currentSecondaryIndex = 0;
     public GameObject defaultSecondaryPrefab;
     private GameObject currentSecondaryObject;
     private WeaponBase currentSecondaryScript;
     [SerializeField] private PlayerSecAmmoUI ammoUI;
 
     // Melee
-    public List<GameObject> unlockedMeleePrefabs = new List<GameObject>();
-    private int currentMeleeIndex = 0;
     public GameObject defaultMeleePrefab;
     private GameObject currentMeleeObject;
     private WeaponBase currentMeleeScript;
 
     void Awake()
     {
-        // Automatically reference Player, PlayerInput, and orbiting Aimer 
+        // Reference orbiting Aimer and DataManager 
         playerInput = GetComponentInParent<PlayerInput>();
-        playerAimer = GameObject.Find("Player/PlayerAimer")?.transform;
-        player = GameObject.Find("Player")?.transform;
+        gameDataManager = GameDataManager.GetInstance();
     }
 
     void Start()
     {
+        // Reference Player and orbiting Aimer 
+        playerAimer = GameObject.Find("Player/PlayerAimer")?.transform;
+        player = GameObject.Find("Player")?.transform;
         // Equip selected primary (or default)
-        if (unlockedPrimaryPrefabs.Count > 0)
+        if (gameDataManager.CurrentData.equippedPrimary != "")
         {
-            EquipPrimaryWeapon(0);
+            EquipPrimaryWeapon(gameDataManager.CurrentData.equippedPrimary);
         }
-        else if (defaultPrimaryPrefab != null)
+        else
         {
             EquipDefaultPrimaryWeapon();
         }
         // Equip selected secondary (or default)
-        if (unlockedSecondaryPrefabs.Count > 0)
+        if (gameDataManager.CurrentData.equippedSecondary != "")
         {
-            EquipSecondaryWeapon(0);
+            EquipSecondaryWeapon(gameDataManager.CurrentData.equippedSecondary);
         }
-        else if (defaultSecondaryPrefab != null)
+        else
         {
             EquipDefaultSecondaryWeapon();
         }
         // Equip selected melee (or default)
-        if (unlockedMeleePrefabs.Count > 0)
+        if (gameDataManager.CurrentData.equippedMelee != "")
         {
-            EquipMeleeWeapon(0);
+            EquipMeleeWeapon(gameDataManager.CurrentData.equippedMelee);
         }
-        else if (defaultMeleePrefab != null)
+        else
         {
             EquipDefaultMeleeWeapon();
         }
@@ -90,12 +88,24 @@ public class WeaponManager : MonoBehaviour
         // Secondary attack button pressed, fire secondary
         if (playerInput.actions["SecAttack"].triggered && currentSecondaryScript != null)
         {
-            currentSecondaryScript.Fire();
-            if (ammoUI != null)
+            if (currentSecondaryScript.GetCurrentAmmo() > 0)
             {
-                // Update secondary ammo UI
-                ammoUI.UpdateGrenadeCount(currentSecondaryScript.GetCurrentAmmo());
+                currentSecondaryScript.Fire();
+                if (ammoUI != null)
+                {
+                    // Update secondary ammo UI
+                    ammoUI.UpdateGrenadeCount(currentSecondaryScript.GetCurrentAmmo());
+                }
+            } 
+            else
+            {
+                if (ammoUI != null)
+                {
+                    // Update secondary ammo UI
+                    ammoUI.FlashRedTwice();
+                }
             }
+            
         }
         // Secondary attack button pressed, fire melee
         if (playerInput.actions["MeleeAttack"].triggered && currentMeleeScript != null)
@@ -104,22 +114,25 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void EquipPrimaryWeapon(int index)
+    void EquipPrimaryWeapon(string weaponName)
     {
         // Instantiate and equip selected primary
-        // TODO: Only a draft, WIP
-        if (index < 0 || index >= unlockedPrimaryPrefabs.Count)
-        {
-            return;
-        }
         if (currentPrimaryObject != null)
         {
             Destroy(currentPrimaryObject);
         }
-        currentPrimaryObject = Instantiate(unlockedPrimaryPrefabs[index], weaponHolder);
-        currentPrimaryScript = currentPrimaryObject.GetComponent<WeaponBase>();
-        AssignFirePoint(currentPrimaryScript, playerAimer);
-        currentPrimaryIndex = index;
+        GameObject prefab = Resources.Load<GameObject>($"Prefabs/Primaries/{weaponName}");
+        if (prefab != null)
+        {
+            currentPrimaryObject = Instantiate(prefab, weaponHolder);
+            currentPrimaryScript = currentPrimaryObject.GetComponent<WeaponBase>();
+            AssignFirePoint(currentPrimaryScript, playerAimer);
+        }
+        else
+        {
+            Debug.LogWarning($"Weapon prefab '{name}' not found in Prefabs/Primaries/");
+            EquipDefaultPrimaryWeapon();
+        }
     }
 
     void EquipDefaultPrimaryWeapon()
@@ -128,25 +141,27 @@ public class WeaponManager : MonoBehaviour
         currentPrimaryObject = Instantiate(defaultPrimaryPrefab, weaponHolder);
         currentPrimaryScript = currentPrimaryObject.GetComponent<WeaponBase>();
         AssignFirePoint(currentPrimaryScript, playerAimer);
-        currentPrimaryIndex = 0;
     }
 
-    void EquipSecondaryWeapon(int index)
+    void EquipSecondaryWeapon(string weaponName)
     {
         // Instantiate and equip selected secondary
-        // TODO: Only a draft, WIP
-        if (index < 0 || index >= unlockedSecondaryPrefabs.Count)
-        {
-            return;
-        }
         if (currentSecondaryObject != null)
         {
             Destroy(currentSecondaryObject);
         }
-        currentSecondaryObject = Instantiate(unlockedSecondaryPrefabs[index], weaponHolder);
-        currentSecondaryScript = currentSecondaryObject.GetComponent<WeaponBase>();
-        AssignFirePoint(currentSecondaryScript, playerAimer);
-        currentSecondaryIndex = index;
+        GameObject prefab = Resources.Load<GameObject>($"Prefabs/Secondaries/{weaponName}");
+        if (prefab != null)
+        {
+            currentSecondaryObject = Instantiate(prefab, weaponHolder);
+            currentSecondaryScript = currentSecondaryObject.GetComponent<WeaponBase>();
+            AssignFirePoint(currentSecondaryScript, playerAimer);
+        }
+        else
+        {
+            Debug.LogWarning($"Weapon prefab '{name}' not found in Prefabs/Secondaries/");
+            EquipDefaultSecondaryWeapon();
+        }
     }
 
     void EquipDefaultSecondaryWeapon()
@@ -155,26 +170,28 @@ public class WeaponManager : MonoBehaviour
         currentSecondaryObject = Instantiate(defaultSecondaryPrefab, weaponHolder);
         currentSecondaryScript = currentSecondaryObject.GetComponent<WeaponBase>();
         AssignFirePoint(currentSecondaryScript, playerAimer);
-        currentSecondaryIndex = 0;
     }
 
-    void EquipMeleeWeapon(int index)
+    void EquipMeleeWeapon(string weaponName)
     {
         // Instantiate and equip selected melee
-        // TODO: Only a draft, WIP
-        if (index < 0 || index >= unlockedMeleePrefabs.Count)
-        {
-            return;
-        }
         if (currentMeleeObject != null)
         {
             Destroy(currentMeleeObject);
         }
-        currentMeleeObject = Instantiate(unlockedMeleePrefabs[index], weaponHolder);
-        currentMeleeScript = currentMeleeObject.GetComponent<WeaponBase>();
-        AssignFirePoint(currentMeleeScript, player);
-        AssignFireAim(currentMeleeScript, playerAimer);
-        currentMeleeIndex = index;
+        GameObject prefab = Resources.Load<GameObject>($"Prefabs/Melee/{weaponName}");
+        if (prefab != null)
+        {
+            currentMeleeObject = Instantiate(prefab, weaponHolder);
+            currentMeleeScript = currentMeleeObject.GetComponent<WeaponBase>();
+            AssignFirePoint(currentMeleeScript, player);
+            AssignFireAim(currentMeleeScript, playerAimer);
+        }
+        else
+        {
+            Debug.LogWarning($"Weapon prefab '{name}' not found in Prefabs/Melee/");
+            EquipDefaultMeleeWeapon();
+        }
     }
 
     void EquipDefaultMeleeWeapon()
@@ -184,21 +201,6 @@ public class WeaponManager : MonoBehaviour
         currentMeleeScript = currentMeleeObject.GetComponent<WeaponBase>();
         AssignFirePoint(currentMeleeScript, player);
         AssignFireAim(currentMeleeScript, playerAimer);
-        currentMeleeIndex = 0;
-    }
-
-    public void UnlockWeapon(GameObject weaponPrefab)
-    {
-        // TODO
-        //
-        //if (!unlockedPrimaryPrefabs.Contains(weaponPrefab))
-        //{
-        //    unlockedPrimaryPrefabs.Add(weaponPrefab);
-        //    if (unlockedPrimaryPrefabs.Count == 1)
-        //    {
-                // EquipPrimaryWeapon(0);
-        //    }
-        //}
     }
 
     private void AssignFirePoint(WeaponBase weaponScript, Transform transform)

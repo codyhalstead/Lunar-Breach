@@ -29,6 +29,7 @@ public class PlayerMedkits : MonoBehaviour
             consumableUI.UpdateConsumableCount(gameDataManager.CurrentData.medkits);
             return true;
         }
+        consumableUI.FlashRedTwice();
         return false;
     }
 

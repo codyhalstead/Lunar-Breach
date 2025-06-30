@@ -29,11 +29,19 @@ public class PlayerConsumableManager : MonoBehaviour
 
         // If consumable button pressed and player has medkits
         // Heal player damage, decrement available medkit count, update UI
-        if (playerInput.actions["Crouch"].triggered && playerHealth != null && gameDataManager.CurrentData.medkits > 0)
+        if (playerInput.actions["Crouch"].triggered && playerHealth != null)
         {
-            playerHealth.HealDamage(healValue);
-            gameDataManager.CurrentData.medkits--;
-            consumableUI.UpdateConsumableCount(gameDataManager.CurrentData.medkits);
+            if (gameDataManager.CurrentData.medkits > 0)
+            {
+                playerHealth.HealDamage(healValue);
+                gameDataManager.CurrentData.medkits--;
+                consumableUI.UpdateConsumableCount(gameDataManager.CurrentData.medkits);
+            }
+            else
+            {
+                consumableUI.FlashRedTwice();
+            }
+   
         }
 
     }

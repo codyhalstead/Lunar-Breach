@@ -12,7 +12,6 @@ public class WeaponShopUI : MonoBehaviour
     public GameObject medMenu;
     public GameObject PurchaseWeaponMenu;
 
-
     public Transform contentPanel;
     public GameObject scrollView;
     public List<WeaponBase> primaryWeapons;
@@ -25,6 +24,14 @@ public class WeaponShopUI : MonoBehaviour
 
     private PlayerCurrency playerCurrency;
     private PlayerMedkits playerMedkits;
+    private WeaponType currentWeaponType;
+
+    public enum WeaponType
+    {
+        Primary = 1,
+        Secondary = 2,
+        Melee = 3
+    }
 
     void Start()
     {
@@ -41,22 +48,31 @@ public class WeaponShopUI : MonoBehaviour
         loadPrimaries();
         loadSecondaries();
         loadMelee();
-        PopulateShop(primaryWeapons);
+        PopulateShop(primaryWeapons, WeaponType.Primary);
     }
 
-    public void PopulateShop(List<WeaponBase> weaponList)
+    public void PopulateShop(List<WeaponBase> weaponList, WeaponType weaponType)
     {
         scrollView.SetActive(true);
         weaponPreviewUI.hide();
         medMenu.SetActive(false);
+        currentWeaponType = weaponType;
         ClearShop();
+        string equippedtWeaponName = getCurrentEquippedWeaponName();
         foreach (var weapon in weaponList)
         {
             GameObject row = Instantiate(weaponRowPrefab, contentPanel);
             WeaponRowUI rowUI = row.GetComponent<WeaponRowUI>();
             rowUI.Setup(weapon, this);
+            if (weapon.name == equippedtWeaponName)
+            {
+                rowUI.setEquipped();
+            }
+            if (isWeaponOwned(weapon.name))
+            {
+                rowUI.setPurchased();
+            }
         }
-       
     }
 
     public void ClearShop()
@@ -69,17 +85,17 @@ public class WeaponShopUI : MonoBehaviour
 
     public void ShowPrimaryWeapons()
     {
-        PopulateShop(primaryWeapons);
+        PopulateShop(primaryWeapons, WeaponType.Primary);
     }
 
     public void ShowSecondaryWeapons()
     {
-        PopulateShop(secondaryWeapons);
+        PopulateShop(secondaryWeapons, WeaponType.Secondary);
     }
 
     public void ShowMeleeWeapons()
     {
-        PopulateShop(meleeWeapons);
+        PopulateShop(meleeWeapons, WeaponType.Melee);
     }
 
     public void ShowMedkits()
@@ -157,18 +173,124 @@ public class WeaponShopUI : MonoBehaviour
 
     public void purchaseWeapon(WeaponBase weapon)
     {
+        if (playerCurrency.RemoveCurrency(weapon.weaponCost))
+        {
+            unlockWeapon(weapon.name);
+            refreshUI();
+        }
+    }
 
+    private void equipPrimaryWeapon(WeaponBase weapon)
+    {
+        gameDataManager.CurrentData.equippedPrimary = weapon.name;
+    }
+
+    private void equipSecondaryWeapon(WeaponBase weapon)
+    {
+        gameDataManager.CurrentData.equippedSecondary = weapon.name;
+    }
+
+    private void equipMeleeWeapon(WeaponBase weapon)
+    {
+        gameDataManager.CurrentData.equippedMelee = weapon.name;
     }
 
     public void equipWeapon(WeaponBase weapon)
     {
-        
+        if (currentWeaponType == WeaponType.Primary)
+        {
+            equipPrimaryWeapon(weapon);
+        }
+        else if (currentWeaponType == WeaponType.Secondary)
+        {
+            equipSecondaryWeapon(weapon);
+        }
+        else if (currentWeaponType == WeaponType.Melee)
+        {
+            equipMeleeWeapon(weapon);
+        }
+        refreshUI();
     }
-
 
     public void OnWeaponSelected(WeaponBase selectedWeapon, bool isOwned, bool isEquipped)
     {
-        weaponPreviewUI.show(selectedWeapon, isOwned);
+        weaponPreviewUI.show(selectedWeapon, isOwned, isEquipped);
+    }
+
+    private string getCurrentEquippedWeaponName()
+    {
+        string currentEquippedWeapon = "";
+        if (currentWeaponType == WeaponType.Primary)
+        {
+            currentEquippedWeapon = gameDataManager.CurrentData.equippedPrimary;
+        }
+        else if (currentWeaponType == WeaponType.Secondary)
+        {
+            currentEquippedWeapon = gameDataManager.CurrentData.equippedSecondary;
+        }
+        else if (currentWeaponType == WeaponType.Melee)
+        {
+            currentEquippedWeapon = gameDataManager.CurrentData.equippedMelee;
+        }
+        return currentEquippedWeapon;
+    }
+
+    private bool isWeaponOwned(string weaponName)
+    {
+        if (currentWeaponType == WeaponType.Primary)
+        {
+            if (gameDataManager.CurrentData.unlockedPrimaries.Contains(weaponName))
+            {
+                return true;
+            }
+        }
+        else if (currentWeaponType == WeaponType.Secondary)
+        {
+            if (gameDataManager.CurrentData.unlockedSecondaries.Contains(weaponName))
+            {
+                return true;
+            }
+        }
+        else if (currentWeaponType == WeaponType.Melee)
+        {
+            if (gameDataManager.CurrentData.unlockedMelee.Contains(weaponName))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void unlockWeapon(string weaponName)
+    {
+        if (currentWeaponType == WeaponType.Primary)
+        {
+            gameDataManager.CurrentData.unlockedPrimaries.Add(weaponName);
+        }
+        else if (currentWeaponType == WeaponType.Secondary)
+        {
+            gameDataManager.CurrentData.unlockedSecondaries.Add(weaponName);
+        }
+        else if (currentWeaponType == WeaponType.Melee)
+        {
+            gameDataManager.CurrentData.unlockedMelee.Add(weaponName);
+        }
+    }
+
+    private void refreshUI()
+    {
+        if (currentWeaponType == WeaponType.Primary)
+        {
+            PopulateShop(primaryWeapons, WeaponType.Primary);
+        }
+        else if (currentWeaponType == WeaponType.Secondary)
+        {
+            PopulateShop(secondaryWeapons, WeaponType.Secondary);
+        }
+        else if (currentWeaponType == WeaponType.Melee)
+        {
+            PopulateShop(meleeWeapons, WeaponType.Melee);
+        }
     }
 
 }
