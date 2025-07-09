@@ -130,6 +130,21 @@ public class Wheelie : BaseEnemy
         }
         anim.Play("Death");
         giveCurrencyToPlayerTarget();
+        logDeath();
+    }
+
+    private void logDeath()
+    {
+        GameDataManager gameDataManager = GameDataManager.GetInstance();
+        gameDataManager.CurrentData.wheeliesKilled += 1;
+        if (gameDataManager.CurrentData.wheeliesKilled == 100)
+        {
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(AchievementPopUpUI.WheelieAchievement);
+            }
+        }
     }
 
     public void Destroy()

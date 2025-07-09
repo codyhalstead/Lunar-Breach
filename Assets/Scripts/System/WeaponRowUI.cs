@@ -13,12 +13,22 @@ public class WeaponRowUI : MonoBehaviour
 
     private WeaponBase weapon;
     private WeaponShopUI shop;
+    private string languageCode = "en";
 
-    public void Setup(WeaponBase weapon, WeaponShopUI shop)
+    public void Setup(WeaponBase weapon, WeaponShopUI shop, string languageCode)
     {
         this.weapon = weapon;
         this.shop = shop;
-        nameText.text = weapon.weaponName;
+        this.languageCode = languageCode;
+        if (languageCode == "es")
+        {
+            nameText.text = weapon.spanishWeaponName;
+
+        }
+        else
+        {
+            nameText.text = weapon.weaponName;
+        }
         if (isOwned)
         {
             priceUI.SetActive(false);

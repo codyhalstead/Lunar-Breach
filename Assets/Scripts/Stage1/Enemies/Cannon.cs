@@ -108,11 +108,26 @@ public class Cannon : BaseEnemy
         }
         anim.Play("Death");
         giveCurrencyToPlayerTarget();
+        logDeath();
     }
 
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    private void logDeath()
+    {
+        GameDataManager gameDataManager = GameDataManager.GetInstance();
+        gameDataManager.CurrentData.cannonsKilled += 1;
+        if (gameDataManager.CurrentData.cannonsKilled == 100)
+        {
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(AchievementPopUpUI.CannonAchievement);
+            }
+        }
     }
 
     void OnDrawGizmosSelected()

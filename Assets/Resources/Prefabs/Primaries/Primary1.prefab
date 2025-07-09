@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6011412134837512077, guid: e13fcab6ca9ca204ab83ae03b8bb6919, type: 3}
   weaponName: Blaster
+  spanishWeaponName: "Bl\xE1ster"
   currentAmmo: -1
   weaponCost: 0
   firePoint: {fileID: 0}

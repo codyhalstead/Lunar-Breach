@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4758010840713048453, guid: 1ad1289d4d8cfa34ab1b0e8059ad7236, type: 3}
   weaponName: Shotgun
+  spanishWeaponName: Escopeta
   currentAmmo: -1
   weaponCost: 3
   firePoint: {fileID: 0}

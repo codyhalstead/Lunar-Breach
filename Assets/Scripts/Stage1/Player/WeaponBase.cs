@@ -5,6 +5,7 @@ public abstract class WeaponBase : MonoBehaviour
     public GameObject bulletPrefab;
 
     public string weaponName;
+    public string spanishWeaponName;
     // -1 == unlimited
     public int currentAmmo = -1;
     public int weaponCost = 1000;

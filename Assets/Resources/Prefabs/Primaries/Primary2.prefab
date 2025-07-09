@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 410765534985122369, guid: c03bf6e55b6dc714c9464d288bc7964f, type: 3}
   weaponName: Rapid Shot
+  spanishWeaponName: "Disparo R\xE1pido"
   currentAmmo: -1
   weaponCost: 2
   firePoint: {fileID: 0}

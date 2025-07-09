@@ -180,6 +180,21 @@ public class Swordsman : BaseEnemy
         }
         anim.Play("Death");
         giveCurrencyToPlayerTarget();
+        logDeath();
+    }
+
+    private void logDeath()
+    {
+        GameDataManager gameDataManager = GameDataManager.GetInstance();
+        gameDataManager.CurrentData.swordsmenKilled += 1;
+        if (gameDataManager.CurrentData.swordsmenKilled == 100)
+        {
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(AchievementPopUpUI.SwordsmanAchievement);
+            }
+        }
     }
 
     public void Destroy()

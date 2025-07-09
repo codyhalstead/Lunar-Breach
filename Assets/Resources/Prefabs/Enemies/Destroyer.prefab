@@ -193,6 +193,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1418067170601996693}
   maxHealth: 200
   currentHealth: 0
+  currencyDrop: 100
   target: {fileID: 0}
   detectionRange: 12
   shootingRange: 10

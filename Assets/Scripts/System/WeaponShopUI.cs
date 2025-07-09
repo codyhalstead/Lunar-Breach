@@ -39,7 +39,7 @@ public class WeaponShopUI : MonoBehaviour
         playerMedkits = GetComponent<PlayerMedkits>();
         playerCurrency = GetComponent<PlayerCurrency>();
         weaponPreviewUI = GetComponent<WeaponPreviewUI>();
-        weaponPreviewUI.Setup(this);
+        weaponPreviewUI.Setup(this, gameDataManager.CurrentData.languageCode);
         MedkitShopUI medUI = medMenu.GetComponent<MedkitShopUI>();
         if (medUI != null)
         {
@@ -63,7 +63,7 @@ public class WeaponShopUI : MonoBehaviour
         {
             GameObject row = Instantiate(weaponRowPrefab, contentPanel);
             WeaponRowUI rowUI = row.GetComponent<WeaponRowUI>();
-            rowUI.Setup(weapon, this);
+            rowUI.Setup(weapon, this, gameDataManager.CurrentData.languageCode);
             if (weapon.name == equippedtWeaponName)
             {
                 rowUI.setEquipped();

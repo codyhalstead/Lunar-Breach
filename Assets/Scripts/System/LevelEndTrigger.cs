@@ -11,7 +11,7 @@ public class LevelEndTrigger : MonoBehaviour
         gameDataManager = GameDataManager.GetInstance();
     }
 
-        private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
@@ -24,20 +24,31 @@ public class LevelEndTrigger : MonoBehaviour
         }
     }
 
+    public void ManualEndLevel()
+    {
+        StartCoroutine(EndLevel());
+    }
+
     private IEnumerator EndLevel()
     {
         ScreenFader screenFader = FindFirstObjectByType<ScreenFader>();
+        
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (!gameDataManager.CurrentData.completedStages.Contains(currentSceneName))
+        {
+            gameDataManager.CurrentData.completedStages.Add(currentSceneName);
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(currentSceneName);
+            }
+        }
+        gameDataManager.SaveData();
         if (screenFader != null)
         {
             screenFader.missionComplete = true;
             yield return StartCoroutine(screenFader.FadeOut());
         }
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        if (!gameDataManager.CurrentData.completedStages.Contains(currentSceneName))
-        {
-            gameDataManager.CurrentData.completedStages.Add(currentSceneName);
-        }
-        gameDataManager.SaveData();
         SceneManager.LoadScene("MainMenu");
     }
 }

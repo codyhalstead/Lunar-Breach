@@ -1,13 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using static Infantryman;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
     public EnemyState currentState = EnemyState.Idle;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    private Color originalColor;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
+    protected Color originalColor;
     protected Animator anim;
     protected bool tookDamage = false;
     protected bool isDead = false;

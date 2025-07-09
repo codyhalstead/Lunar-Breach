@@ -30,5 +30,7 @@ EditorBuildSettings:
     path: Assets/Stage3.unity
     guid: 7c4db114f7ba9ea4bbae86309dd79ba3
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ec0c4cc99e399974a8691d7833272cad, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: f39b2b18d2b96d945853ad648342264b, type: 2}
   m_UseUCBPForAssetBundles: 0

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - AchievementPopUp
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Player
   - Enemy
   - Enemy Bullet
-  - Preview
+  - WallIgnoringEnemyBullet
   - 
   - 
   - 
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Layer 2
     uniqueID: 3236843865
+    locked: 0
+  - name: Layer 3
+    uniqueID: 3138738573
     locked: 0
   m_RenderingLayers:
   - Default

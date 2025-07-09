@@ -11,13 +11,15 @@ public class WeaponPreviewUI : MonoBehaviour
     public TextMeshProUGUI costText;
     public Button purchaseButton;
     public Button equipButton;
+    private string languageCode = "en";
 
     private WeaponBase selectedWeapon;
     private WeaponShopUI shop;
 
-    public void Setup(WeaponShopUI shop)
+    public void Setup(WeaponShopUI shop, string languageCode)
     {
         this.shop = shop;
+        this.languageCode = languageCode;
     }
 
 
@@ -31,7 +33,15 @@ public class WeaponPreviewUI : MonoBehaviour
         this.selectedWeapon = weapon;
         weaponPreviewWindow.SetActive(true);
         setBulletPreview(weapon);
-        nameText.text = weapon.weaponName;
+        if (languageCode == "es")
+        {
+            nameText.text = weapon.spanishWeaponName;
+
+        }
+        else
+        {
+            nameText.text = weapon.weaponName;
+        }
         if (isOwned)
         {
             purchaseUI.SetActive(false);
@@ -71,6 +81,8 @@ public class WeaponPreviewUI : MonoBehaviour
         {
             bulletPreviewImage.gameObject.SetActive(true);
             bulletPreviewImage.sprite = bulletSprite;
+            bulletPreviewImage.type = Image.Type.Simple;
+            bulletPreviewImage.preserveAspect = true;
         }
         else
         {

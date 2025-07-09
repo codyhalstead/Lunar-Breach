@@ -189,6 +189,21 @@ public class Infantryman : BaseEnemy
         }
         anim.Play("Death");
         giveCurrencyToPlayerTarget();
+        logDeath();
+    }
+
+    private void logDeath()
+    {
+        GameDataManager gameDataManager = GameDataManager.GetInstance();
+        gameDataManager.CurrentData.infantrymenKilled += 1;
+        if (gameDataManager.CurrentData.infantrymenKilled == 100)
+        {
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(AchievementPopUpUI.InfantrymanAchievement);
+            }
+        }
     }
 
     public void Destroy()

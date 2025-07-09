@@ -13,6 +13,14 @@ public class GameData
     public string equippedPrimary = "";
     public string equippedSecondary = "";
     public string equippedMelee = "";
+    public string languageCode = "";
+
+    public int destroyersKilled;
+    public int dronesKilled;
+    public int swordsmenKilled;
+    public int infantrymenKilled;
+    public int wheeliesKilled;
+    public int cannonsKilled;
 
     // May use in the future
     public List<WeaponUpgradeData> weaponUpgradeLevels = new();

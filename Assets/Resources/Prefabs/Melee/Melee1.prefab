@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb732ef31312db438b1f8b0e4d84ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4889231584639396050, guid: c4136878bc48a9542a5f34ea53e5278d, type: 3}
   weaponName: Energy Sword
+  spanishWeaponName: "Espada de energ\xEDa"
   currentAmmo: -1
   weaponCost: 0
-  bulletPrefab: {fileID: 4889231584639396050, guid: c4136878bc48a9542a5f34ea53e5278d, type: 3}
   firePoint: {fileID: 0}
   playerAimer: {fileID: 0}
   fireForce: 1

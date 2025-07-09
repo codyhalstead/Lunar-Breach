@@ -32,4 +32,29 @@ public class ScreenFader : MonoBehaviour
         }
         yield return new WaitForSeconds(fadeDuration);
     }
+
+    public IEnumerator FadeIn()
+    {
+        float elapsed = 0f;
+        // Start fully black 
+        Color c = new Color(0f, 0f, 0f, 1f);
+        fadeImage.color = c;
+        yield return new WaitForSeconds(fadeDuration / 2);
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            // Decrease alpha from 1 to 0
+            float alpha = Mathf.Clamp01(1f - (elapsed / fadeDuration));
+            c.a = alpha;
+            fadeImage.color = c;
+
+            yield return null;
+        }
+
+        // Ensure it's fully transparent at the end
+        c.a = 0f;
+        fadeImage.color = c;
+    }
+
 }

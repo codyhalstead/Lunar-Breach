@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4967679170620131050, guid: 3e57d5d767c0c5b44928e25f60c1a756, type: 3}
   weaponName: Grenades
+  spanishWeaponName: Granadas
   currentAmmo: -1
   weaponCost: 0
   firePoint: {fileID: 0}

@@ -178,6 +178,21 @@ public class Destroyer : BaseEnemy
         }
         anim.Play("Death");
         giveCurrencyToPlayerTarget();
+        logDeath();
+    }
+
+    private void logDeath()
+    {
+        GameDataManager gameDataManager = GameDataManager.GetInstance();
+        gameDataManager.CurrentData.destroyersKilled += 1;
+        if (gameDataManager.CurrentData.destroyersKilled == 100)
+        {
+            AchievementPopUpUI popup = GameObject.FindGameObjectWithTag("AchievementPopUp").GetComponent<AchievementPopUpUI>();
+            if (popup != null)
+            {
+                popup.launchAchievement(AchievementPopUpUI.DestroyerAchievement);
+            }
+        }
     }
 
     public void Destroy()

@@ -37,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
         gameDataManager = GameDataManager.GetInstance();
     }
 
+    void Start()
+    {
+        // Start fade-in
+        StartCoroutine(LoadWithFadeIn());
+    }
+
     private void Update()
     {
         if (isDead)
@@ -168,6 +174,16 @@ public class PlayerMovement : MonoBehaviour
         gameDataManager.SaveData();
         // Reload scene after fade
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator LoadWithFadeIn()
+    {
+        // Fade-in
+        ScreenFader fader = FindFirstObjectByType<ScreenFader>();
+        if (fader != null)
+        {
+            yield return StartCoroutine(fader.FadeIn());
+        }
     }
 
     public void Destroy()
