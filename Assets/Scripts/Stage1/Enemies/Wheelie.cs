@@ -8,6 +8,7 @@ public class Wheelie : BaseEnemy
     public Light2D wheelieGlow;
     public float sprintSpeed;
     private bool isAlerting = false;
+    public AudioClip deathSound;
 
     // Names of Wheelie animations
     public string[] idleDirections = { "IdleUp", "IdleUp", "IdleLeft", "IdleDown", "IdleDown", "IdleDown", "IdleRight", "IdleUp" };
@@ -23,7 +24,7 @@ public class Wheelie : BaseEnemy
 
     void Update()
     {
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -129,6 +130,19 @@ public class Wheelie : BaseEnemy
             rigidBody.linearVelocity = Vector2.zero;
         }
         anim.Play("Death");
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+        if (isFrozen)
+        {
+            spriteRenderer.color = originalColor;
+            isFrozen = false;
+            if (animator != null)
+            {
+                animator.speed = animatorSpeed;
+            }
+        }
         giveCurrencyToPlayerTarget();
         logDeath();
     }
@@ -218,7 +232,7 @@ public class Wheelie : BaseEnemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Collision triggered
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isFrozen)
         {
             PlayerHealth player = other.GetComponent<PlayerHealth>();
             if (player != null)

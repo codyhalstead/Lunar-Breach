@@ -7,6 +7,8 @@ public class PrimaryGun2 : WeaponBase
     [SerializeField] public int bulletDamage = 10;
     [SerializeField] public float knockBackForce = 10f;
     [SerializeField] public float fireRate = 0.2f;
+    [SerializeField] private AudioSource fireAudioSource;
+    public AudioClip firingSound;
 
     private float cooldown = 0f;
     private bool isFiringHeld = false;
@@ -25,6 +27,11 @@ public class PrimaryGun2 : WeaponBase
 
     public override void Fire()
     {
+        if (firingSound != null && fireAudioSource != null)
+        {
+            fireAudioSource.pitch = Random.Range(0.90f, 1.1f);
+            fireAudioSource.PlayOneShot(firingSound);
+        }
         // Create bullet
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

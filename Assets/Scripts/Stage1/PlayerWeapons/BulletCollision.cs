@@ -12,8 +12,10 @@ public class BulletCollision : MonoBehaviour
     public float bulletLifetime = 7f;
     public bool destroyOnImpact = true;
     public bool noMultiHits = true;
+    public bool isFreezing = false;
+    public float freezeDuration = 0f;
 
-   
+
 
     void Start()
     {
@@ -42,6 +44,10 @@ public class BulletCollision : MonoBehaviour
         {
             // Collision was an enemy, do damage
             enemy.TakeDamage(damage);
+            if (isFreezing)
+            {
+                enemy.Freeze(freezeDuration);
+            }
             Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
             {
@@ -57,5 +63,11 @@ public class BulletCollision : MonoBehaviour
             // Bullet was set to be destroyed on impact
             Destroy(gameObject);
         }
+    }
+
+    public void Destroy()
+    {
+        // Destroys projectile (intended to be triggered by animation event)
+        Destroy(gameObject);
     }
 }

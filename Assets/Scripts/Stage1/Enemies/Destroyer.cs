@@ -6,6 +6,7 @@ public class Destroyer : BaseEnemy
     public GameObject projectilePrefab;
     public Transform firePoint;
     private bool isAlerting = false;
+    public AudioClip fireSound;
 
     protected override void Start()
     {
@@ -16,7 +17,7 @@ public class Destroyer : BaseEnemy
 
     void Update()
     {
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -113,6 +114,10 @@ public class Destroyer : BaseEnemy
             // Attack ready
             anim.Play("Shot2");
             lastShootTime = Time.time;
+            if (audioSource != null && fireSound != null)
+            {
+                audioSource.PlayOneShot(fireSound);
+            }
             if (projectilePrefab != null && firePoint != null && target != null)
             {
                 // Calc attack direction, center bullet angle

@@ -13,6 +13,10 @@ public class PlayerHealth : MonoBehaviour
 
     public PlayerHealthUI healthBar;
 
+    [SerializeField] private AudioSource audioSource;
+    public AudioClip hurtSound;
+    public AudioClip healedSound;
+
     void Start()
     {
         // Set health to max, update health UI
@@ -52,6 +56,12 @@ public class PlayerHealth : MonoBehaviour
             {
                 StartCoroutine(FlashColor(Color.red));
             }
+            if (audioSource != null && hurtSound != null)
+            {
+                audioSource.clip = hurtSound;
+                audioSource.volume = 0.6f;
+                audioSource.Play();
+            }
         }
 
     }
@@ -66,6 +76,12 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null)
         {
             StartCoroutine(FlashColor(Color.green));
+        }
+        if (audioSource != null && healedSound != null)
+        {
+            audioSource.clip = healedSound;
+            audioSource.volume = 0.1f;
+            audioSource.Play();
         }
 
     }

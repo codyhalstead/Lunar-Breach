@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using static BaseEnemy;
 
 public class Boss : BaseEnemy
 {
@@ -10,6 +9,8 @@ public class Boss : BaseEnemy
     public Transform primaryFirePoint;
     public GameObject primaryProjectilePrefab;
     public Light2D bossGlow;
+    public AudioClip phaseChangeShound;
+    public AudioClip mainFireSound;
 
     [Header("CircularShot")]
     public Transform circularFirePoint;
@@ -50,7 +51,9 @@ public class Boss : BaseEnemy
 
     private bool isAlerting = false;
     private bool isWalking = false;
+    private bool inRadialState = false;
     private bool inFinalState = false;
+    private int timesFrozen = 0;
 
     private LevelEndTrigger levelEndTrigger;
 
@@ -87,7 +90,7 @@ public class Boss : BaseEnemy
     void FixedUpdate()
     {
 
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -116,9 +119,21 @@ public class Boss : BaseEnemy
         }
         if (currentHealth <= (maxHealth * 60) / 100)
         {
+            if (!inRadialState)
+            {
+                inRadialState = true;
+                if (audioSource != null && phaseChangeShound != null)
+                {
+                    audioSource.PlayOneShot(phaseChangeShound);
+                }
+            }
             ShootRadial();
             if (!inFinalState && currentHealth <= (maxHealth * 20) / 100)
             {
+                if (audioSource != null && phaseChangeShound != null)
+                {
+                    audioSource.PlayOneShot(phaseChangeShound);
+                }
                 circularShootCooldown = (circularShootCooldown * 0.5f);
                 shootCooldown = (shootCooldown * 0.75f);
                 rocketSpeed = (rocketSpeed * 1.5f);
@@ -151,6 +166,16 @@ public class Boss : BaseEnemy
                 ShootAtTarget();
                 ShootHomingRocket();
                 break;
+        }
+    }
+
+    public override void Freeze(float duration)
+    {
+        // Limit freeze duration
+        if (timesFrozen < 5 && !isFrozen)
+        {
+            base.Freeze(duration/(timesFrozen + 3));
+            timesFrozen++;
         }
     }
 
@@ -305,6 +330,10 @@ public class Boss : BaseEnemy
         {
             anim.Play("ChestShot");
             // Attack ready
+            if (audioSource != null && mainFireSound != null)
+            {
+                audioSource.PlayOneShot(mainFireSound);
+            }
             lastShootTime = Time.time;
             if (primaryProjectilePrefab != null && primaryFirePoint != null)
             {

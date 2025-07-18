@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HomingProj : MonoBehaviour
 {
+    public AudioClip explosionSound;
+    public AudioClip thrusterSound;
+    [SerializeField] private AudioSource audioSource;
     public float speed = 5f;
     public float rotateSpeed = 200f;
     public float lifetime = 5f;
@@ -26,7 +29,10 @@ public class HomingProj : MonoBehaviour
         {
             target = player.transform;
         }
-
+        if (explosionSound != null && audioSource != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        }
         // Set auto explosion time
         Invoke(nameof(Explode), explosionDelay);
     }
@@ -47,6 +53,10 @@ public class HomingProj : MonoBehaviour
         {
             // Create explosion object
             GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            if (explosionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(explosionSound, transform.position, 1.5f);
+            }
             // Pass on data to explosion handler (including this game object) if applicable
             ExplosionEventHandler handler = explosion.GetComponent<ExplosionEventHandler>();
             if (handler != null)

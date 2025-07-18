@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 2170290168898168481}
   - component: {fileID: 6643231160760702357}
   - component: {fileID: 3415846188591423071}
+  - component: {fileID: 4272094852150351163}
   m_Layer: 5
   m_Name: WeaponRow
   m_TagString: Untagged
@@ -616,6 +617,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+--- !u!114 &4272094852150351163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7929684291047918028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3500c024f9f814143b8e8c6263fa5d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8394953534858383876
 GameObject:
   m_ObjectHideFlags: 0

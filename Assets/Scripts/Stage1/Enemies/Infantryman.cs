@@ -7,6 +7,7 @@ public class Infantryman : BaseEnemy
     public Transform firePoint;
     public float delayBetweenShots;
     public int shots;
+    public AudioClip fireSound;
 
     private bool isAlerting = false;
     private bool isShooting = false;
@@ -20,7 +21,7 @@ public class Infantryman : BaseEnemy
 
     void Update()
     {
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -130,6 +131,14 @@ public class Infantryman : BaseEnemy
         // Loop for multiple-round shots
         for (int i = 0; i < shots; i++)
         {
+            if (isFrozen)
+            {
+                break;
+            }
+            if (audioSource != null && fireSound != null)
+            {
+                audioSource.PlayOneShot(fireSound);
+            }
             FaceTarget();
             if (projectilePrefab != null && firePoint != null && target != null)
             {

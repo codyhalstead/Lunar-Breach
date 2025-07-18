@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - AchievementPopUp
+  - UIAudio
   layers:
   - Default
   - TransparentFX

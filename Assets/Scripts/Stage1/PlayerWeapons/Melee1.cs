@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Melee1 : WeaponBase
 {
@@ -11,6 +10,8 @@ public class Melee1 : WeaponBase
     [SerializeField] public float fireForce = 10f;
     [SerializeField] public int bulletDamage = 10;
     [SerializeField] public float knockBackForce = 10f;
+    [SerializeField] private AudioSource fireAudioSource;
+    public AudioClip swingSound;
 
     public override void Fire()
     {
@@ -18,6 +19,10 @@ public class Melee1 : WeaponBase
         {
             // Previous swing in progress, ignore
             return;
+        }
+        if (swingSound != null && fireAudioSource != null)
+        {
+            fireAudioSource.PlayOneShot(swingSound);
         }
         // Create the "Swing"
         hitbox = Instantiate(bulletPrefab, firePoint);

@@ -10,6 +10,8 @@ public class SecondaryWeapon1 : WeaponBase
     [SerializeField] public float explosionDelay = 3f;
     [SerializeField] public float explosionRadius = 2f;
     [SerializeField] public int maxAmmo = 25;
+    [SerializeField] private AudioSource fireAudioSource;
+    public AudioClip fireSound;
 
     private void Awake()
     {
@@ -23,6 +25,11 @@ public class SecondaryWeapon1 : WeaponBase
         {
             // Out of ammo, do nothing
             return;
+        }
+        if (fireSound != null && fireAudioSource != null)
+        {
+            fireAudioSource.pitch = Random.Range(0.70f, 1.3f);
+            fireAudioSource.PlayOneShot(fireSound);
         }
         // Create grenade
         GameObject grenade = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

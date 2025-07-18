@@ -8,6 +8,7 @@ public class Swordsman : BaseEnemy
     private bool isAlerting = false;
     public float forwardOffset = 1f;  
     public float verticalOffset = 0.8f;
+    public AudioClip fireSound;
 
     protected override void Start()
     {
@@ -18,7 +19,7 @@ public class Swordsman : BaseEnemy
 
     void Update()
     {
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -115,6 +116,11 @@ public class Swordsman : BaseEnemy
             // Attack ready
             anim.Play("Attack1");
             lastShootTime = Time.time;
+            if (audioSource != null && fireSound != null)
+            {
+                audioSource.pitch = Random.Range(0.70f, 1.3f);
+                audioSource.PlayOneShot(fireSound);
+            }
             if (projectilePrefab != null && firePoint != null)
             {
                 // Adjust targeting and firepoint positions with offsets

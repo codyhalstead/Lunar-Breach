@@ -6,6 +6,7 @@ public class Drone : BaseEnemy
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float fleeRange;
+    public AudioClip fireSound;
 
     private bool isAlerting = false;
 
@@ -18,7 +19,7 @@ public class Drone : BaseEnemy
 
     void Update()
     {
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             // Target is dead, do nothing
             return;
@@ -133,6 +134,10 @@ public class Drone : BaseEnemy
         // Check attack cooldown
         if (Time.time - lastShootTime >= shootCooldown)
         {
+            if (audioSource != null && fireSound != null)
+            {
+                audioSource.PlayOneShot(fireSound);
+            }
             // Attack ready
             anim.Play("Idle");
             lastShootTime = Time.time;

@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float boostCost;
     [SerializeField] private PlayerEnergy playerEnergy;
     [SerializeField] private Light2D playerGlow;
+    [SerializeField] private AudioSource boostAudioSource;
+    public AudioClip deathSound;
+    public AudioClip boostSound;
+
     private PlayerAnimation playerAnimation;
     private GameDataManager gameDataManager;
 
@@ -125,7 +129,12 @@ public class PlayerMovement : MonoBehaviour
         // Toggle boost status, increase speed
         isBoosting = true;
         speed *= boostMult;
-
+        if (boostAudioSource != null && !boostAudioSource.isPlaying)
+        {
+            boostAudioSource.clip = boostSound;
+            boostAudioSource.loop = true;
+            boostAudioSource.Play();
+        }
     }
 
     private void DisableBoost()
@@ -138,6 +147,10 @@ public class PlayerMovement : MonoBehaviour
         // Toggle boost status, decrease speed
         isBoosting = false;
         speed /= boostMult;
+        if (boostAudioSource != null && boostAudioSource.isPlaying)
+        {
+            boostAudioSource.Stop();
+        }
     }
 
     public void SetGlowPurple()
@@ -158,6 +171,10 @@ public class PlayerMovement : MonoBehaviour
         // Disable player input, stop all current movement, play death anim
         GetComponent<PlayerInput>().DeactivateInput();
         playerAnimation.Die();
+        if (deathSound != null)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position, 1f);
+        }
         movementInput = Vector2.zero;
         rigidBody.linearVelocity = Vector2.zero;
         StartCoroutine(RestartWithFade());

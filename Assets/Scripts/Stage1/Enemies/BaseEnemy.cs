@@ -5,11 +5,17 @@ using UnityEngine.UI;
 public abstract class BaseEnemy : MonoBehaviour
 {
     public EnemyState currentState = EnemyState.Idle;
+    protected Animator animator;
+    protected float animatorSpeed = 1f;
+
     [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] protected AudioSource audioSource;
     protected Color originalColor;
     protected Animator anim;
     protected bool tookDamage = false;
     protected bool isDead = false;
+    protected bool isFrozen = false;
+    protected Color freezeColor = new Color(0.0235f, 1f, 1f, 1f);
 
     [Header("Stats")]
     public int maxHealth = 1000;
@@ -38,6 +44,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected bool hasBeenAlerted = false;
     protected Rigidbody2D rigidBody;
 
+
     public enum EnemyState
     {
         Idle,
@@ -58,6 +65,11 @@ public abstract class BaseEnemy : MonoBehaviour
         if (target == null)
         {
             target = GameObject.FindGameObjectWithTag("Player")?.transform;
+        }
+        animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animatorSpeed = animator.speed; 
         }
     }
 
@@ -90,12 +102,44 @@ public abstract class BaseEnemy : MonoBehaviour
         }
     }
 
+    public virtual void Freeze(float duration)
+    {
+        if (!isFrozen)
+        {
+            StartCoroutine(FreezeRoutine(duration));
+        }
+    }
+
+    private IEnumerator FreezeRoutine(float duration)
+    {
+        spriteRenderer.color = freezeColor;
+        isFrozen = true;
+        if (animator != null)
+        {
+            animator.speed = 0;
+        }
+        yield return new WaitForSeconds(duration); 
+        isFrozen = false;
+        spriteRenderer.color = originalColor;
+        if (animator != null)
+        {
+            animator.speed = animatorSpeed;
+        }
+    }
+
     private IEnumerator FlashColor(Color flashColor)
     {
         // Make enemy sprite flash given sprite color
         spriteRenderer.color = flashColor;
         yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = originalColor;
+        if (isFrozen)
+        {
+            spriteRenderer.color = freezeColor;
+        } 
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
     }
 
     // Required method for all enemies

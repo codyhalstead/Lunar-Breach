@@ -10,9 +10,9 @@ public class GameDataManager : MonoBehaviour
 
     public GameData CurrentData { get; private set; }
 
-    public List<string> allPrimaries = new List<String> { "Primary1", "Primary2", "Primary3" };
-    public List<string> allSecondaries = new List<String> { "SecondaryWeapon1", "SecondaryWeapon2" };
-    public List<string> allMelee = new List<String> { "Melee1" };
+    public List<string> allPrimaries = new List<String> { "Primary1", "Primary2", "Primary3", "Primary4" };
+    public List<string> allSecondaries = new List<String> { "SecondaryWeapon1", "SecondaryWeapon2", "SecondaryWeapon3", "SecondaryWeapon4" };
+    public List<string> allMelee = new List<String> { "Melee1", "Melee2", "Melee3", "Melee4" };
 
     private static bool applicationIsQuitting = false;
 

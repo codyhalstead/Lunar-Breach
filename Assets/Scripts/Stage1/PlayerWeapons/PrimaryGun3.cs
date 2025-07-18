@@ -7,6 +7,8 @@ public class PrimaryGun3 : WeaponBase
     [SerializeField] public int bulletDamage = 10;
     [SerializeField] public float knockBackForce = 10f;
     [SerializeField] public float fireRate = 0.2f;
+    [SerializeField] private AudioSource fireAudioSource;
+    public AudioClip firingSound;
 
     private float cooldown = 0f;
     private bool isFiringHeld = false;
@@ -25,6 +27,10 @@ public class PrimaryGun3 : WeaponBase
 
     public override void Fire()
     {
+        if (firingSound != null && fireAudioSource != null)
+        {
+            fireAudioSource.PlayOneShot(firingSound);
+        }
         // Calc attack direction, center bullet angle
         Vector2 shootDir = firePoint.up;
         float baseAngle = firePoint.eulerAngles.z;

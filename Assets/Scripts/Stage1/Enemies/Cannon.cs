@@ -9,6 +9,8 @@ public class Cannon : BaseEnemy
     public Transform firePoint;
     public bool facingLeft;
     public Light2D cannonGlow;
+    public AudioClip deathSound;
+    public AudioClip fireSound;
 
     protected override void Start()
     {
@@ -26,7 +28,7 @@ public class Cannon : BaseEnemy
     void Update()
     {
         // Target is dead, do nothing
-        if (target == null || isDead)
+        if (target == null || isDead || isFrozen)
         {
             return;
         }
@@ -71,6 +73,10 @@ public class Cannon : BaseEnemy
             // Attack ready
             anim.Play("Idle");
             lastShootTime = Time.time;
+            if (audioSource != null && fireSound != null)
+            {
+                audioSource.PlayOneShot(fireSound);
+            }
             if (projectilePrefab != null)
             {
                 // Calc attack direction (straight left or right)
@@ -107,6 +113,19 @@ public class Cannon : BaseEnemy
             rigidBody.linearVelocity = Vector2.zero;
         }
         anim.Play("Death");
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+        if (isFrozen)
+        {
+            spriteRenderer.color = originalColor;
+            isFrozen = false;
+            if (animator != null)
+            {
+                animator.speed = animatorSpeed;
+            }
+        }
         giveCurrencyToPlayerTarget();
         logDeath();
     }

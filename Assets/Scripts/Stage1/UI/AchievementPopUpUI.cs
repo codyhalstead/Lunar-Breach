@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class AchievementPopUpUI : MonoBehaviour
 {
     public GameObject achievementUI;
+    public AudioClip achievementNotificationSound;
+    [SerializeField] private AudioSource uiAudioSource;
     public Image image;
 
     public Sprite destroyerImage;
@@ -31,6 +33,10 @@ public class AchievementPopUpUI : MonoBehaviour
     public void launchAchievement(string achievementKey)
     {
         SetAchievementImage(achievementKey);
+        if (uiAudioSource != null && achievementNotificationSound != null)
+        {
+            uiAudioSource.PlayOneShot(achievementNotificationSound);
+        }
         StartCoroutine(DisplayAchievementForSeconds(3f));
     }
 
