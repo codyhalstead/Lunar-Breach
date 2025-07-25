@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Lunar Breach</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
+
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #unity-container {
+            margin: 40px auto;
+            padding: 10px;
+            background-color: #444;
+        }
+
+        #unity-canvas {
+            border: 2px solid #444;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #unity-footer, #unity-loading-bar, #unity-warning {
+            color: #fff;
+        }
+
+        #unity-progress-bar-empty {
+            background: #444;
+        }
+
+        #unity-progress-bar-full {
+            background: #fff;
+        }
+
+        a {
+            color: #4da6ff;
+        }
+    </style>
+
+</head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>

@@ -4,19 +4,28 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lunar Breach</title>
+    <title>Lunar Breach Project</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0 auto;
             padding: 20px;
             max-width: 900px;
-            background-color: #f8f8f8;
-            color: #333;
+            background-color: #000;
+            color: #fff;
         }
 
-        h1, h2 {
-            color: #2c3e50;
+        h1, h2, h3 {
+            color: #ffffff;
+        }
+
+        a {
+            color: #4da6ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         .thumbnail img, .screenshots img, .team img {
@@ -35,49 +44,47 @@
             width: 100%;
             height: 400px;
             border: none;
+            margin-top: 40px;
         }
+
+        hr {
+            border: none;
+            border-top: 1px solid #fff;
+            margin: 40px 0;
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>Project Name</h1>
+    <h1>Lunar Breach Game</h1>
 
     <!-- Thumbnail -->
     <div class="thumbnail">
-        <h2>Thumbnail</h2>
-
+        <h2>(Thumbnail)</h2>
+        <hr />
     </div>
+
 
     <!-- Abstract -->
     <div class="abstract">
         <h2>Abstract</h2>
         <p>
-            Brief Description
+            Brief Game Description
         </p>
+        <hr />
     </div>
 
     <!-- Screenshots -->
     <div class="screenshots">
         <h2>Screenshots</h2>
-      
-    </div>
-
-    <!-- Team Profiles -->
-    <div class="team">
-        <h2>Meet the Team</h2>
-        <div class="team-member">
-            <div>
-                <h3>Cody Halstead</h3>
-                <p>Everythinbg</p>
-            </div>
-        </div>
+        <hr />
     </div>
 
     <!-- Video Demo -->
     <div class="video">
         <h2>Video Demo</h2>
-
-
+        <hr />
     </div>
 
     <!-- Download or WebGL Link -->
@@ -85,8 +92,53 @@
         <h2>Playable Game Download</h2>
         <p>
             <a href="WebGLBuild/index.html">▶️ Play Web Version</a><br />
-            <a href="WindowsBuild/Lunar-Breach-Windows.zip" download>⬇️ Download Project (Windows Build, ZIP)</a>
+            <a href="WindowsBuild/Lunar-Breach-Windows.zip" download>⬇️ Download Project (Windows Build: ZIP)</a>
         </p>
+        <hr />
+    </div>
+
+    <!-- Team Profile -->
+    <div class="team">
+        <h2>Hollow Moon Studio<br>Team Profile</h2>
+        <div class="team-member">
+            <img src="PagePhotos/DeveloperPhoto-Cody.jpeg" alt="Team Member 1" width="100" />
+            <div>
+                <h3>Cody Halstead</h3>
+                <p>Brief Bio</p>
+                <h4>Project Roles</h4>
+                <ul>
+                    <li>Programmer</li>
+                    <li>Art</li>
+                    <li>VFX</li>
+                    <li>AFX</li>
+                    <li>Story</li>
+                    <li>Coordinator</li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    <!-- Older Video Demos -->
+    <div class="older video">
+        <h2>Older Development Videos</h2>
+
+        <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/aGfPvFTyDUA"
+                title="Alpha Presentation"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+        </iframe>
+
+        <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/ZSd7MDNzf2g"
+                title="Beta Presentation"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+        </iframe>
+
     </div>
 
 </body>
