@@ -1,26 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
 public static class SaveSystem
 {
-    private static string path => Application.persistentDataPath + "/save.json";
+    private const string SaveKey = "GameDataJSON";
 
     public static void SaveGame(GameData data)
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(path, json);
+        PlayerPrefs.SetString(SaveKey, json);
+        PlayerPrefs.Save();
     }
 
     public static GameData LoadGame()
     {
-        if (File.Exists(path))
+        if (PlayerPrefs.HasKey(SaveKey))
         {
-            string json = File.ReadAllText(path);
+            string json = PlayerPrefs.GetString(SaveKey);
             return JsonUtility.FromJson<GameData>(json);
         }
+
         // Set defaults for new save
         GameData gameData = new GameData();
         gameData.unlockedPrimaries = new List<string> { "Primary1" };
@@ -37,7 +38,7 @@ public static class SaveSystem
         gameData.destroyersKilled = 0;
         gameData.dronesKilled = 0;
         SaveGame(gameData);
-        return gameData; 
+        return gameData;
     }
 
     private static string GetDefaultLanguage()
@@ -56,5 +57,4 @@ public static class SaveSystem
             default: return "en";
         }
     }
-
 }

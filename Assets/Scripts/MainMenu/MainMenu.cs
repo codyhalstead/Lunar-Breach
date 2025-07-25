@@ -36,11 +36,11 @@ public class MainMenu : MonoBehaviour
         }
 
         // Now enable/disable buttons based on game progress
-        if (!gameDataManager.CurrentData.completedStages.Contains("Stage1"))
+        if (!gameDataManager.CurrentData.completedStages.Contains("Stage1") && level2Button != null)
         {
             level2Button.interactable = false;
         }
-        if (!gameDataManager.CurrentData.completedStages.Contains("Stage2"))
+        if (!gameDataManager.CurrentData.completedStages.Contains("Stage2") && level2Button != null)
         {
             level3Button.interactable = false;
         }

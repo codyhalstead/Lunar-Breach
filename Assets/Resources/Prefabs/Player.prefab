@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b938046681f87c3499f31d4c8d13eaaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healValue: 40
+  healValue: 80
   consumableUI: {fileID: 0}
   playerInput: {fileID: 8706640700481188779}
   playerHealth: {fileID: 9072942327182689059}
