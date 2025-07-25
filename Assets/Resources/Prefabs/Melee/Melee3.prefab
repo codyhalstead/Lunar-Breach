@@ -49,11 +49,11 @@ MonoBehaviour:
   weaponName: Voidpulse
   spanishWeaponName: "Pulso del Vac\xEDo"
   currentAmmo: -1
-  weaponCost: 1000
+  weaponCost: 3000
   firePoint: {fileID: 0}
   playerAimer: {fileID: 0}
   fireForce: 10
-  bulletDamage: 20
+  bulletDamage: 80
   knockBackForce: 40
   forwardOffset: 2
   verticalOffset: 0

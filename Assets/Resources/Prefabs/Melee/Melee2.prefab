@@ -53,7 +53,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   playerAimer: {fileID: 0}
   fireForce: 10
-  bulletDamage: 10
+  bulletDamage: 45
   knockBackForce: 10
   forwardOffset: 1.8
   verticalOffset: 0

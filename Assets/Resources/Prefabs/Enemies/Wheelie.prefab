@@ -249,7 +249,7 @@ MonoBehaviour:
   audioSource: {fileID: 4515091471829487041}
   maxHealth: 50
   currentHealth: 0
-  currencyDrop: 100
+  currencyDrop: 50
   target: {fileID: 0}
   detectionRange: 10
   shootingRange: 0.5

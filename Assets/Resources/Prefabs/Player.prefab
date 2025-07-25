@@ -375,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2079048626433580579}
   playerInput: {fileID: 8706640700481188779}
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   healthBar: {fileID: 0}
   audioSource: {fileID: 232265600563796248}

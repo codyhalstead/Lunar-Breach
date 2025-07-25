@@ -52,11 +52,11 @@ MonoBehaviour:
   weaponCost: 0
   firePoint: {fileID: 0}
   fireForce: 10
-  grenadeDamage: 50
+  grenadeDamage: 75
   knockBackForce: 10
   explosionDelay: 2
   explosionRadius: 2
-  maxAmmo: 25
+  maxAmmo: 20
   fireAudioSource: {fileID: 2896943137058843135}
   fireSound: {fileID: 8300000, guid: 595c9124660bb4f4996c5ec92bbb38bd, type: 3}
 --- !u!82 &2896943137058843135

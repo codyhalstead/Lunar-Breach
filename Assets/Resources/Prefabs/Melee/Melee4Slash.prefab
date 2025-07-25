@@ -131,11 +131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2baaf73d888cf4eb7f19a8bd942e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 15
   knockbackForce: 7
   bulletLifetime: 7
   destroyOnImpact: 1
   noMultiHits: 1
+  isFreezing: 0
+  freezeDuration: 0
 --- !u!61 &4258940559386145748
 BoxCollider2D:
   m_ObjectHideFlags: 0

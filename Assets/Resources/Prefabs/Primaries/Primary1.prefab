@@ -52,7 +52,7 @@ MonoBehaviour:
   weaponCost: 0
   firePoint: {fileID: 0}
   fireForce: 20
-  bulletDamage: 25
+  bulletDamage: 30
   knockBackForce: 5
   fireRate: 0.3
   fireAudioSource: {fileID: -3107213261604323526}

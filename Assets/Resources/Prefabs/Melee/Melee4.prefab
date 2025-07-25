@@ -49,7 +49,7 @@ MonoBehaviour:
   weaponName: Cryo Blade
   spanishWeaponName: "Espada Criog\xE9nica"
   currentAmmo: -1
-  weaponCost: 1000
+  weaponCost: 5000
   firePoint: {fileID: 0}
   playerAimer: {fileID: 0}
   fireForce: 10

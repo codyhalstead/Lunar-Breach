@@ -49,10 +49,10 @@ MonoBehaviour:
   weaponName: Mines
   spanishWeaponName: Minas
   currentAmmo: -1
-  weaponCost: 1000
+  weaponCost: 3000
   firePoint: {fileID: 0}
   fireForce: 10
-  grenadeDamage: 50
+  grenadeDamage: 80
   knockBackForce: 10
   explosionDelay: 500
   explosionRadius: 2

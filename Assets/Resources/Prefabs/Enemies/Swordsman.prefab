@@ -193,9 +193,9 @@ MonoBehaviour:
   currentState: 0
   spriteRenderer: {fileID: 8681701405331189292}
   audioSource: {fileID: 393944950572614960}
-  maxHealth: 200
+  maxHealth: 170
   currentHealth: 0
-  currencyDrop: 100
+  currencyDrop: 170
   target: {fileID: 0}
   detectionRange: 9
   shootingRange: 2.5
@@ -203,7 +203,7 @@ MonoBehaviour:
   moveSpeed: 3.5
   patrolPoints: []
   shootCooldown: 0.3
-  shotDamage: 5
+  shotDamage: 10
   shotKnockback: 0
   shotSpeed: 0
   bulletLifeTime: 0

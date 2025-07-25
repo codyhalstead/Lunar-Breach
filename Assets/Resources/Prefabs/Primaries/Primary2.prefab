@@ -49,10 +49,10 @@ MonoBehaviour:
   weaponName: Rapid Shot
   spanishWeaponName: "Disparo R\xE1pido"
   currentAmmo: -1
-  weaponCost: 2
+  weaponCost: 1000
   firePoint: {fileID: 0}
   fireForce: 13
-  bulletDamage: 30
+  bulletDamage: 15
   knockBackForce: 1
   fireRate: 0.15
   fireAudioSource: {fileID: 8059452222717022889}

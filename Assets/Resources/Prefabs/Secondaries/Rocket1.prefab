@@ -159,7 +159,7 @@ MonoBehaviour:
   audioSource: {fileID: -3075495360489059644}
   explosionDelay: 1
   explosionRadius: 2
-  damage: 50
+  damage: 70
   knockbackForce: 10
   explosionEffect: {fileID: 5032257062936890422, guid: 9a21b63dbe62d8743bc039f15e594e5f, type: 3}
   isFreezing: 0

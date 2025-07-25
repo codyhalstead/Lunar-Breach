@@ -53,7 +53,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   playerAimer: {fileID: 0}
   fireForce: 1
-  bulletDamage: 500
+  bulletDamage: 120
   knockBackForce: 25
   fireAudioSource: {fileID: 8469136218157745346}
   swingSound: {fileID: 8300000, guid: 1a4abd8f37ee4304d832bcb81110ccde, type: 3}

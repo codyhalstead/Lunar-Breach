@@ -40342,9 +40342,9 @@ MonoBehaviour:
   currentState: 0
   spriteRenderer: {fileID: 1421799341}
   audioSource: {fileID: 1421799345}
-  maxHealth: 1000
+  maxHealth: 5500
   currentHealth: 0
-  currencyDrop: 100
+  currencyDrop: 2000
   target: {fileID: 0}
   detectionRange: 13
   shootingRange: 50
@@ -40352,7 +40352,7 @@ MonoBehaviour:
   moveSpeed: 2
   patrolPoints: []
   shootCooldown: 1
-  shotDamage: 1
+  shotDamage: 15
   shotKnockback: 4
   shotSpeed: 7
   bulletLifeTime: 20
@@ -40366,7 +40366,7 @@ MonoBehaviour:
   circularNumberOfShots: 8
   circularPatternRotationSpeed: 17
   circularShootCooldown: 0.4
-  circularShotDamage: 1
+  circularShotDamage: 10
   circularShotKnockback: 1
   circularShotSpeed: 5
   circularBulletLifeTime: 20
@@ -40376,7 +40376,7 @@ MonoBehaviour:
   rocketSpeed: 5
   rocketRotateSpeed: 200
   rocketLifetime: 5
-  rocketDamage: 0
+  rocketDamage: 25
   rocketKnockback: 10
   rocketExplosionDelay: 5
   bossHealthUI: {fileID: 216975254}
@@ -49556,6 +49556,10 @@ PrefabInstance:
       propertyPath: reticle
       value: 
       objectReference: {fileID: 1397405883}
+    - target: {fileID: 7680320685916718027, guid: 5f2351d05540f0749857fb1d6e40eebe, type: 3}
+      propertyPath: healValue
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7680320685916718027, guid: 5f2351d05540f0749857fb1d6e40eebe, type: 3}
       propertyPath: consumableUI
       value: 

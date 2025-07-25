@@ -194,9 +194,9 @@ MonoBehaviour:
   currentState: 0
   spriteRenderer: {fileID: 6124777383146240617}
   audioSource: {fileID: 9163128537009624366}
-  maxHealth: 50
+  maxHealth: 75
   currentHealth: 0
-  currencyDrop: 100
+  currencyDrop: 75
   target: {fileID: 0}
   detectionRange: 40
   shootingRange: 40

@@ -49,10 +49,10 @@ MonoBehaviour:
   weaponName: Shotgun
   spanishWeaponName: Escopeta
   currentAmmo: -1
-  weaponCost: 3
+  weaponCost: 3000
   firePoint: {fileID: 0}
   fireForce: 10
-  bulletDamage: 10
+  bulletDamage: 20
   knockBackForce: 10
   fireRate: 0.6
   fireAudioSource: {fileID: 8715565352619756459}
