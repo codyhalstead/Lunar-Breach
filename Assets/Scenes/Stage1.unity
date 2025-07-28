@@ -1089,7 +1089,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1310568671330100124, guid: 12f11e79946bb9c409da56b18cab7255, type: 3}
       propertyPath: currencyDrop
-      value: 30000
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 3131943356853148208, guid: 12f11e79946bb9c409da56b18cab7255, type: 3}
       propertyPath: m_LocalPosition.x
@@ -246895,7 +246895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3598188690620955064, guid: 75c3fa7e30394e14ea67c8017238ba84, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3598188690620955064, guid: 75c3fa7e30394e14ea67c8017238ba84, type: 3}
       propertyPath: m_Resource
